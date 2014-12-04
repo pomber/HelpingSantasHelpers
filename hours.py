@@ -92,3 +92,9 @@ class Hours:
 
         total_days = num_days_since_jan1 + rest_time_in_working_days
         return total_days * self.minutes_in_24h + local_start + rest_time_remaining_minutes
+
+    def get_remaining_sanctioned_time(self, time):
+        day_minute = time % self.minutes_in_24h
+        remaining = self.day_end - day_minute
+        return remaining if remaining > 0 else 0
+
