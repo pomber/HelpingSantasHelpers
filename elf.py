@@ -58,3 +58,17 @@ class Elf:
         self.rating = max(0.25,
                           min(4.0, self.rating * (self.rating_increase ** (sanctioned/60.0)) *
                               (self.rating_decrease ** (unsanctioned/60.0))))
+
+    def asign_toy(self, input_time, toy, hrs):
+        start_time = hrs.next_sanctioned_minute(input_time)  # double checks that work starts during sanctioned work hours
+        duration = int(math.ceil(toy.duration / self.rating))
+        sanctioned, unsanctioned = hrs.get_sanctioned_breakdown(start_time, duration)
+        
+        if unsanctioned == 0:
+            self.next_available_time = hrs.next_sanctioned_minute(start_time + duration)
+        else:
+            self.next_available_time = hrs.apply_resting_period(start_time + duration, unsanctioned)
+
+        self.update_elf(hrs, toy, input_time, duration)
+
+        return duration
