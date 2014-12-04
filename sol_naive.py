@@ -22,7 +22,7 @@ class Solution:
             work_duration = elf.asign_toy(work_start_time, toy, hrs)
             heapq.heappush(self.elves, (elf.next_available_time, elf))
 
-            yield toy.id, elf.id, work_start_time, work_duration
+            yield toy.id, elf.id, work_start_time, work_duration, elf.rating
 
 
 if __name__ == '__main__':

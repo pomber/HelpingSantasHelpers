@@ -32,11 +32,11 @@ def evaluate(num_elves, input, solution):
         wcsv = csv.writer(w)
         wcsv.writerow(['ToyId', 'ElfId', 'StartTime', 'Duration'])
         for line in result:
-            toy_id, elf_id, start_seconds, work_duration = line
+            toy_id, elf_id, start_seconds, work_duration, rating = line
             ref_time = datetime.datetime(2014, 1, 1, 0, 0)
             tt = ref_time + datetime.timedelta(seconds=60*start_seconds)
             time_string = " ".join([str(tt.year), str(tt.month), str(tt.day), str(tt.hour), str(tt.minute)])
-            wcsv.writerow([toy_id, elf_id, time_string, work_duration])
+            wcsv.writerow([toy_id, elf_id, time_string, work_duration, rating])
 
     evaluator.evaluate(num_elves, input, output)
 
