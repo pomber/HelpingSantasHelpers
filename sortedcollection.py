@@ -195,6 +195,16 @@ class SortedCollection(object):
             return self._items[i]
         raise ValueError('No item found with key at or above: %r' % (k,))
 
+    def pop_ge(self, k):
+        'Return first item with a key >= equal to k.  Raise ValueError if not found'
+        i = bisect_left(self._keys, k)
+        if i != len(self):
+            item = self._items[i]
+            del self._keys[i]
+            del self._items[i]
+            return item
+        raise ValueError('No item found with key at or above: %r' % (k,))
+
     def find_gt(self, k):
         'Return first item with a key > k.  Raise ValueError if not found'
         i = bisect_right(self._keys, k)

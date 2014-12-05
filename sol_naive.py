@@ -28,8 +28,9 @@ class Solution:
 if __name__ == '__main__':
     #10 5000 Score = 33654.4601537
     #10 50000 Score = 205974.408143
-    NUM_ELVES = 10
-    input_file = 'toys5000.csv'
+    #1 50000 Score = 554453.974907
+    NUM_ELVES = 1
+    input_file = 'toys50000.csv'
     solution = Solution(NUM_ELVES)
 
     santa.evaluate(NUM_ELVES, input_file, solution)

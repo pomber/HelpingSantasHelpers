@@ -34,6 +34,7 @@ def evaluate(num_elves, input, solution):
         for line in result:
             toy_id, elf_id, start_seconds, work_duration, rating = line
             ref_time = datetime.datetime(2014, 1, 1, 0, 0)
+            #TODO pasar a hours.py:
             tt = ref_time + datetime.timedelta(seconds=60*start_seconds)
             time_string = " ".join([str(tt.year), str(tt.month), str(tt.day), str(tt.hour), str(tt.minute)])
             wcsv.writerow([toy_id, elf_id, time_string, work_duration, rating])

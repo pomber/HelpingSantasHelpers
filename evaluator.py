@@ -47,6 +47,7 @@ def score_submission(sub_file, myToys, hrs, NUM_ELVES):
     complete_toys = []
     last_minute = 0
     row_count = 0
+    unsactioned_time = 0
     with open(sub_file, 'rb') as f:
         fcsv = csv.reader(f)
         fcsv.next()  # header
@@ -59,6 +60,8 @@ def score_submission(sub_file, myToys, hrs, NUM_ELVES):
             current_elf = int(row[1])
             start_minute = hrs.convert_to_minute(row[2])
             duration = int(row[3])
+
+            unsactioned_time += hrs.get_sanctioned_breakdown(start_minute, duration)[1]
 
             if not current_toy in myToys:
                 print 'Toy {0} not in toy dictionary.'.format(current_toy)
@@ -100,7 +103,7 @@ def score_submission(sub_file, myToys, hrs, NUM_ELVES):
             myElves[current_elf].update_elf(hrs, myToys[current_toy], start_minute, duration)
 
     if len(complete_toys) != len(myToys):
-        print "\n ** Not all toys are complete. Exiting."
+        print "\n ** Not all toys are complete. Only {0}".format(len(complete_toys))
         exit(-1)
     if max(complete_toys) != len(myToys):
         print "\n ** max ToyId != NUM_TOYS."
@@ -110,6 +113,8 @@ def score_submission(sub_file, myToys, hrs, NUM_ELVES):
         score = last_minute * math.log(1.0 + len(myElves))
         print '\nSuccess!'
         print '  Score = {0}'.format(score)
+        print '  Last minute = {0}'.format(last_minute)
+        print '  Unsanctioned time = {0}'.format(unsactioned_time)
 
 def evaluate(num_elves, toys_filename, results_filename):
     toy_file = os.path.join(os.getcwd(), toys_filename)
