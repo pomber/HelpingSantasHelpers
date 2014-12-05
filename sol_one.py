@@ -47,10 +47,13 @@ class Solution:
 
             remaining_time = hrs.get_remaining_sanctioned_time(current_time)
             
-            try:
-                toy, duration = self.pending_toys.pop_le(remaining_time)
-            except ValueError:
+            if (remaining_time == hrs.sanctioned_minutes_per_day and elf.rating == 4):
                 toy, duration = self.pending_toys.pop_le(sys.maxint)
+            else:
+                try:
+                    toy, duration = self.pending_toys.pop_le(remaining_time)
+                except ValueError:
+                    toy, duration = self.pending_toys.pop_le(sys.maxint)
             
             work_duration = elf.asign_toy(current_time, toy, hrs)
             heapq.heappush(self.elves, (elf.next_available_time, elf))
@@ -60,7 +63,9 @@ class Solution:
 
 if __name__ == '__main__':
     #10 5000 Score = 32179.754561
+    #1 5000 Score = 59618.9752943
     #10 50000 Score = 200735.006972
+    #1 50000 Score = 544377.694344
     NUM_ELVES = 1
     input_file = 'toys5000.csv'
     solution = Solution(NUM_ELVES)

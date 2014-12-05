@@ -14,6 +14,7 @@ class Hours:
         self.day_end = (9 + self.hours_per_day) * 60
         self.reference_start_time = datetime.datetime(2014, 1, 1, 0, 0)
         self.minutes_in_24h = 24 * 60
+        self.sanctioned_minutes_per_day = self.day_end - self.day_start
 
     @staticmethod
     def convert_to_minute(arrival):
